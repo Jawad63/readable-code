@@ -1,85 +1,82 @@
 <?php
-
-
-function order_pizza($PizzaType, $Customer) {
-
-    $Type = $PizzaType;
+function order_pizza($pizzaType, $customer) {
+    $Type = $pizzaType;
     echo 'Creating new order... <br>';
     $ToPrint = 'A ';
-    $ToPrint .= $PizzaType;
-    $P = calc_cts($Type);
+    $ToPrint .= $pizzaType;
+    $price = calculatePrice($Type);
 
         $Address = 'unknown';
-         if($Customer == 'koen')
-         {
-        $Address = 'a yacht in Antwerp';
-         }
-         else if ($Customer == 'manuele')
-         {
-        $Address = 'somewhere in Belgium';
-         }
-         else if ($Customer == 'students')
-         {
-        $Address = 'BeCode office';
-         }
 
-    $ToPrint .=   ' pizza should be sent to ' . $Customer . ". <br>The address: {$Address}.";
-    echo $ToPrint; echo '<br>';
-    echo'The bill is €'.$P.'.<br>';
-    echo "Order finished.<br><br>";
-}
-
-//Functions Start
-function total_price($P) {
-    return $P;
-}
-
-function test($PizzaType) {
-    echo "Test: type is {$PizzaType}. <br>";
-}
-
-function calc_cts($PizzaType) {
-
-
-   if ($PizzaType == 'marguerita')
-   {
-        $PizzaCost = 50;
+        switch($customer){
+            case "koen":
+                $address = 'a yacht in Antwerp';
+                break;
+            case "manuele":
+                $address = 'somewhere in Belgium';
+                break;
+            case "students":
+                $address = "Becode Office";
+                break;
         }
-         else {
-            if ($PizzaType == 'golden') {
-               $PizzaCost = 100;
-            }
-            if ($PizzaType == 'calzone') {
-               $PizzaCost = 10;
-            }
-            if ($PizzaType == 'hawai') {
-               throw new Exception('Computer says no');
-            }
-
-         }
-
-         return $PizzaCost;
-   }
 
 
-function orderAllPizzas() {
+    echo "A {$pizzaType} pizza should be sent to {$customer}";
+    echo "<br>";
+    echo "The address is: {$address}";
+    echo "<br>";
+    echo "The bill is {$price} Euros<br>";
+    echo "Order finished. <br> <br>";
+    echo "<br>";
 
-    $test= 0;
-    order_pizza('calzone', 'koen');
-    order_pizza('marguerita', 'manuele');
+ }
 
-    order_pizza('golden', 'students');
-}
+    function calculatePrice($pizzaType)
+    {
+        if ($pizzaType == 'marguerita')
+        {
+            $pizzaCost = 50;
+        }
+        else
+         {
+        if ($pizzaType == 'golden')
+        {
+            $pizzaCost = 100;
+        }
+        if ($pizzaType == 'calzone')
+        {
+            $pizzaCost = 10;
+        }
+        if ($pizzaType == 'hawaii')
+        {
+            throw new Exception('Computer says no');
+        }
 
-function make_Allhappy($RunFunction) {
+    }
 
-   if ($RunFunction)
-   {
-      orderAllPizzas();
-   }
-   else {
-      // Should not do anything when false
-   }
-}
+         return $pizzaCost;
+    }
 
-Make_Allhappy(true);
+
+    function orderAllPizzas()
+    {
+        $test= 0;
+        order_pizza('calzone', 'koen');
+        order_pizza('marguerita', 'manuele');
+
+        order_pizza('golden', 'students');
+    }
+
+    function make_Allhappy($runFunction)
+    {
+        if ($runFunction)
+        {
+            orderAllPizzas();
+        }
+        else
+        {
+            // Should not do anything when false
+        }
+    }
+
+make_Allhappy(true);
